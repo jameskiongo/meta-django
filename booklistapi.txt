@@ -1,0 +1,12 @@
+/api/books
+All the books in your database
+/api/books/{bookId}
+Only particular book
+
+convert a model instance to a JSON response
+from django.forms.models import model_to_dict
+from django.http import JsonResponse
+
+book = Book.objects.get(pk=16)
+return JsonResponse(model_to_dict)
+

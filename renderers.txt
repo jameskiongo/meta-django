@@ -1,0 +1,8 @@
+    RENDERERS
+Are responsible for displaying the output of APIs
+commonly used renderers
+a. Json Renderers
+b. Browsable API Renderers
+C. XML Renderers
+d. Yaml Renderers
+e. JsonP Renderers

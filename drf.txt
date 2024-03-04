@@ -1,0 +1,4 @@
+    DJANGO REST FRAMEWORK
+Easy to integrate
+Web browsable API
+Readable HTPP status codes

@@ -1,0 +1,66 @@
+http methods:
+Get: retrieve data
+post: send data and create record
+put: update whole record
+patch: update partial record
+delete: delete whole resource
+http request:
+version type
+url
+method 
+request headers
+body(optional)
+http request headers: extra information for server to make decision on how
+to present the content
+RESTFULNESS
+rest apis-provides easy way to communicate with server
+restful api
+a. must have client server
+b. stateless
+c. cachable: responses can be saved
+d. layered
+e. uniform interface
+API NAMING CONVENTIONS
+Endpoints/uri/url should always use lowercase letters and hyphens in between
+words
+API with variables you should use camelCase to represent the id eg orderId and 
+wrap them in curly braces eg: /orders/{orderId}/menu-item
+forward slash : indicate hierarchical relationship
+customer - orders - ordersitem
+/customer/{orderId}/order-item
+always use a nouns, No verbs
+never use filename extension eg customer/{customerId}.json
+instead use: customer/{customerId}?format=json
+to filter a result use query string parameters eg /menu-item?category=apetizer
+never add a trail slash at the end of endpoint eg /sports/basketball/teams/
+remove the final slash eg /sports/basketball/teams
+    TOOLS FOR API DEVELOPMENT
+1. Curl - make http calls from command line
+a. GET request eg
+curl https://postman-echo.com/get?project=littlelemon
+b. POST request eg
+curl -d "project=littlelemon" -X POST
+https://postman-echo/post
+2. Insomnia Rest client- store, organize, and execute REST API requests
+3. Postman
+    REST BEST PRACTICES
+KISS- keep it simple stupid
+Filter, order and paginate
+Versioning
+Caching
+Rate limiting: prevent abuse to api(limits calls)
+Response time
+Monitor status codes
+    Security and authentication in REST Api
+How to keep API safe:
+a. SSL(secure socket layer) certificates
+b. Signed URLS: limited access for a period of time
+   Developers use HMAC
+c. Token-based authentication: JSON Web Token(JWT)
+d. cross-origin resource sharing(CORS policy and firewalls)
+e. Firewalls application on your server
+    Access Control
+Role: collection of privileges
+privileges: allowed to do a task
+
+
