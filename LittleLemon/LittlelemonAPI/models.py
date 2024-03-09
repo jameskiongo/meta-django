@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 
 
@@ -20,3 +21,9 @@ class MenuItem(models.Model):
 
     def __str__(self) -> str:
         return self.title
+
+
+class Rating(models.Model):
+    menuitem_id = models.SmallIntegerField()
+    rating = models.SmallIntegerField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE)

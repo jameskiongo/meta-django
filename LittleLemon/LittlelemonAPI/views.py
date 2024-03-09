@@ -1,3 +1,4 @@
+from django.contrib.auth.models import Group, User
 from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404
 from rest_framework import generics, status
@@ -7,13 +8,23 @@ from rest_framework.decorators import (
     renderer_classes,
     throttle_classes,
 )
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.throttling import AnonRateThrottle, UserRateThrottle
 
-from .models import MenuItem
-from .serializers import MenuItemSerializer
+from .models import MenuItem, Rating
+from .serializers import MenuItemSerializer, RatingSerializer
 from .throttles import TenCallsPerMinute
+
+
+class RatingsView(generics.ListCreateAPIView):
+    queryset = Rating.objects.all()
+    serializer_class = RatingSerializer
+
+    def get_permissions(self):
+        if self.request.method == "GET":
+            return []
+        return [IsAuthenticated()]
 
 
 @api_view(["GET", "POST"])
@@ -83,3 +94,18 @@ def throttle_check(request):
 @throttle_classes([TenCallsPerMinute])
 def throttle_check_auth(request):
     return Response({"message": "logged in user only"})
+
+
+@api_view(["POST"])
+@permission_classes([IsAdminUser])
+def managers(request):
+    username = request.data["username"]
+    if username:
+        user = get_object_or_404(User, username=username)
+        managers = Group.objects.get(name="Manager")
+        if request.method == "POST":
+            managers.user_set.add(user)
+        elif request.method == "DELETE":
+            managers.user_set.remove(user)
+        return Response({"message": "ok"})
+    return Response({"message": "error"}, status.HTTP_400_BAD_REQUEST)
